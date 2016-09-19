@@ -136,13 +136,13 @@ class custom_view extends \core_question\bank\view {
 
     public function offlinequiz_contains($questionid) {
         global $CFG, $DB;
-        
+
         if (in_array($questionid, $this->offlinequiz->questions)) {
             return true;
         }
-        return false; 
+        return false;
     }
-    
+
     /**
      * Renders the html question bank (same as display, but returns the result).
      *
@@ -249,7 +249,7 @@ class custom_view extends \core_question\bank\view {
     protected function create_new_question_form($category, $canadd) {
         // Don't display this.
     }
-    
+
     /**
      * Create the SQL query to retrieve the indicated questions, based on
      * \core_question\bank\search\condition filters.
@@ -293,7 +293,7 @@ class custom_view extends \core_question\bank\view {
         // Build the SQL.
         $sql = ' FROM {question} q ' . implode(' ', $joins);
         $sql .= ' WHERE ' . implode(' AND ', $tests);
-        $sql .= '   AND q.qtype IN (\'multichoice\', \'multichoiceset\', \'description\') ';
+        $sql .= ' AND q.qtype IN (\'description\', \'' . implode('\', \'', \mod_offlinequiz\qtype_enabled::instance()->get()) . '\') ';
         $this->countsql = 'SELECT count(1)' . $sql;
         $this->loadsql = 'SELECT ' . implode(', ', $fields) . $sql . ' ORDER BY ' . implode(', ', $sorts);
     }

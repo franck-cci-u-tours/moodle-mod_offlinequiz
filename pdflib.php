@@ -573,7 +573,7 @@ function offlinequiz_create_pdf_question(question_usage_by_activity $templateusa
             $html = '';
 
             $html .= $questiontext . '<br/><br/>';
-            if ($question->qtype == 'multichoice' || $question->qtype == 'multichoiceset') {
+            if (\mod_offlinequiz\qtype_enabled::instance()->is_enabled($question->qtype)) {
 
                 // There is only a slot for multichoice questions.
                 $attempt = $templateusage->get_question_attempt($slot);
@@ -623,7 +623,7 @@ function offlinequiz_create_pdf_question(question_usage_by_activity $templateusa
             }
 
             // Finally print the question number and the HTML string.
-            if ($question->qtype == 'multichoice' || $question->qtype == 'multichoiceset') {
+            if (\mod_offlinequiz\qtype_enabled::instance()->is_enabled($question->qtype)) {
                 $pdf->SetFont('FreeSans', 'B', $offlinequiz->fontsize);
                 $pdf->Cell(4, round($offlinequiz->fontsize / 2), "$number)  ", 0, 0, 'R');
                 $pdf->SetFont('FreeSans', '', $offlinequiz->fontsize);
@@ -638,7 +638,7 @@ function offlinequiz_create_pdf_question(question_usage_by_activity $templateusa
                 $pdf->Ln(14);
 
                 // Print the question number and the HTML string again on the new page.
-                if ($question->qtype == 'multichoice' || $question->qtype == 'multichoiceset') {
+                if (\mod_offlinequiz\qtype_enabled::instance()->is_enabled($question->qtype)) {
                     $pdf->SetFont('FreeSans', 'B', $offlinequiz->fontsize);
                     $pdf->Cell(4, round($offlinequiz->fontsize / 2), "$number)  ", 0, 0, 'R');
                     $pdf->SetFont('FreeSans', '', $offlinequiz->fontsize);
@@ -704,7 +704,7 @@ function offlinequiz_create_pdf_question(question_usage_by_activity $templateusa
             $html = '';
 
             $html .= $questiontext . '<br/><br/>';
-            if ($question->qtype == 'multichoice' || $question->qtype == 'multichoiceset') {
+            if (\mod_offlinequiz\qtype_enabled::instance()->is_enabled($question->qtype)) {
 
                 $slot = $questionslots[$currentquestionid];
 
@@ -755,7 +755,7 @@ function offlinequiz_create_pdf_question(question_usage_by_activity $templateusa
             }
 
             // Finally print the question number and the HTML string.
-            if ($question->qtype == 'multichoice' || $question->qtype == 'multichoiceset') {
+            if (\mod_offlinequiz\qtype_enabled::instance()->is_enabled($question->qtype)) {
                 $pdf->SetFont ( 'FreeSans', 'B', $offlinequiz->fontsize );
                 $pdf->Cell ( 4, round ( $offlinequiz->fontsize / 2 ), "$number)  ", 0, 0, 'R' );
                 $pdf->SetFont ( 'FreeSans', '', $offlinequiz->fontsize );
@@ -770,7 +770,7 @@ function offlinequiz_create_pdf_question(question_usage_by_activity $templateusa
                 $pdf->Ln ( 14 );
 
                 // Print the question number and the HTML string again on the new page.
-                if ($question->qtype == 'multichoice' || $question->qtype == 'multichoiceset') {
+                if (\mod_offlinequiz\qtype_enabled::instance()->is_enabled($question->qtype)) {
                     $pdf->SetFont ( 'FreeSans', 'B', $offlinequiz->fontsize );
                     $pdf->Cell ( 4, round ( $offlinequiz->fontsize / 2 ), "$number)  ", 0, 0, 'R' );
                     $pdf->SetFont ( 'FreeSans', '', $offlinequiz->fontsize );
@@ -921,7 +921,7 @@ function offlinequiz_create_pdf_answer($maxanswers, $templateusage, $offlinequiz
         $question = $questions[$currentquestionid];
 
         // Only look at multichoice questions.
-        if ($question->qtype != 'multichoice' && $question->qtype != 'multichoiceset') {
+        if (!\mod_offlinequiz\qtype_enabled::instance()->is_enabled($question->qtype)) {
             continue;
         }
 

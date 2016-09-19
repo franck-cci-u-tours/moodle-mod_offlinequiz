@@ -281,7 +281,7 @@ if ($mode == 'preview') {
                     $currentpage++;
                 }
                 $order = array();
-                if ($question->qtype == 'multichoice' || $question->qtype == 'multichoiceset') {
+                if (\mod_offlinequiz\qtype_enabled::instance()->is_enabled($question->qtype)) {
                     $slot = $questionslots[$question->id];
                     $slotquestion = $templateusage->get_question($slot);
                     $attempt = $templateusage->get_question_attempt($slot);

@@ -14,7 +14,9 @@ var CSS = {
  * @protected
  * @extends M.core.chooserdialogue
  */
-var QUESTIONCHOOSER = function() {
+var QUESTIONCHOOSER = function(enabled_qtypes) {
+
+    this.enabled_qtypes= enabled_qtypes;
     QUESTIONCHOOSER.superclass.constructor.apply(this, arguments);
 };
 
@@ -48,12 +50,9 @@ Y.extend(QUESTIONCHOOSER, M.core.chooserdialogue, {
 
         var nodes = Y.all('#chooseform input[type=radio]')._nodes;
         for(i = 0; i < nodes.length; i++) {
-        	if (nodes[i].id != 'qtype_qtype_multichoiceset' &&
-        		nodes[i].id != 'qtype_qtype_multichoice' &&
-        		nodes[i].id != 'qtype_qtype_description' ) {
-        		nodes[i].disabled = true;
-        	}
-        }        
+
+            nodes[i].disabled= (nodes[i].id != 'qtype_qtype_description') && (this.enabled_qtypes.indexOf(nodes[i].id.substr(12)) == -1);
+        }
     },
 
     parameters_to_hidden_input: function(parameters, form, name) {
@@ -75,7 +74,8 @@ Y.extend(QUESTIONCHOOSER, M.core.chooserdialogue, {
 });
 
 M.mod_offlinequiz = M.mod_offlinequiz || {};
-M.mod_offlinequiz.init_questionchooser = function() {
-    M.mod_offlinequiz.question_chooser = new QUESTIONCHOOSER({});
+M.mod_offlinequiz.init_questionchooser = function(enabled_qtypes) {
+
+    M.mod_offlinequiz.question_chooser = new QUESTIONCHOOSER(enabled_qtypes);
     return M.mod_offlinequiz.question_chooser;
 };
