@@ -578,7 +578,7 @@ function offlinequiz_create_docx_question(question_usage_by_activity $templateus
             ));
             $docx->addNumbering($answernumbering);
 
-            if ($question->qtype == 'multichoice' || $question->qtype == 'multichoiceset') {
+            if (\mod_offlinequiz\qtype_enabled::instance()->is_enabled_qtype($question->qtype)) {
 
                 // There is only a slot for multichoice questions.
                 $attempt = $templateusage->get_question_attempt($slot);
@@ -671,7 +671,7 @@ function offlinequiz_create_docx_question(question_usage_by_activity $templateus
             ));
             $docx->addNumbering($answernumbering);
 
-            if ($question->qtype == 'multichoice' || $question->qtype == 'multichoiceset') {
+            if (\mod_offlinequiz\qtype_enabled::instance()->is_enabled($question->qtype)) {
 
                 $slot = $questionslots[$question->id];
 

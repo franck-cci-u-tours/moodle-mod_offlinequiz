@@ -48,12 +48,12 @@ $string['addrandomquestion'] = 'questions randomly';
 $string['addrandomquestiontoofflinequiz'] = 'Adding questions to offlinequiz {$a->name} (group {$a->group})';
 $string['addrandomquestiontopage'] = 'Add a random question to page {$a}';
 $string['addarandomquestion'] = 'questions randomly';
-$string['addarandomquestion_help'] = 'Moodle adds a random selection of multiple choice questions (or all-or-nothing multiple-choice questions) to the current offline quiz group. The number of questions added can be set. The questions are chosen from the current question category (and, if selected, its sub-categories).';
+$string['addarandomquestion_help'] = 'Moodle adds a random selection of multiple choice questions type to the current offline quiz group. The number of questions added can be set. The questions are chosen from the current question category (and, if selected, its sub-categories).';
 $string['addtoofflinequiz'] = 'Add to offline quiz';
 $string['addtoqueue'] = 'Add to queue';
 $string['allinone'] = 'Unlimited';
 $string['alllists'] = 'All lists';
-$string['allornothing'] = 'All-or-nothing';
+$string['multichoiceset_info'] = 'All-or-nothing';
 $string['allresults'] = 'Show all results';
 $string['allstudents'] = 'Show all students';
 $string['alwaysavailable'] = 'Always available';
@@ -303,7 +303,7 @@ The offline quizzes can be downloaded as PDF files. The students mark their answ
 $string['moveselectedonpage'] = 'Move selected questions to page: {$a}';
 $string['copyselectedtogroup'] = 'Add selected questions to group: {$a}';
 $string['copytogroup'] = 'Add all questions to group: {$a}';
-$string['multichoice'] = 'Multiple choice';
+$string['multichoice_multi_info']='Multiple choice';
 $string['multipleanswers'] = 'Choose at least one answer.';
 $string['moodleprocessing'] = 'Let Moodle process data';
 $string['movecorners'] = 'Change the positions of the corner markings first. Use drag and drop.';
@@ -431,8 +431,8 @@ $string['questionanalysistitle'] = 'Difficulty Analysis Table';
 $string['questionbankcontents'] = 'Question bank contents';
 $string['questionforms'] = 'Question forms';
 $string['questioninfoanswers'] = 'Number of correct answers';
-$string['questioninfocorrectanswer'] = 'correct answer';
-$string['questioninfocorrectanswers'] = 'correct answers';
+$string['questioninfocorrectanswer'] = '{$a} correct answer';
+$string['questioninfocorrectanswers'] = '{$a} correct answers';
 $string['questioninfonone'] = 'Nothing';
 $string['questioninfoqtype'] = 'Question type';
 $string['questionname'] = 'Question name';
@@ -607,7 +607,7 @@ $string['showquestioninfo_help'] = 'With this option you can control, which addi
 You can choose one of these:
 <ul>
 <li> Nothing
-<li> Question type - Depending on question type Single-Choice, Multiple-Choice, All-or-Nothing Multiple-Choice will be printed
+<li> Question type - Depending on question type a type info string will be printed
 <li> Number of correct answers - The number of correct answers will be printed
 </ul>';
 $string['showstudentview'] = 'Show student view';
@@ -624,7 +624,7 @@ $string['shufflequestionsselected'] = 'Shuffle questions has been set, so some a
 $string['shufflewithin'] = 'Shuffle within questions';
 $string['shufflewithin_help'] = 'If enabled, the parts making up each question will be randomly shuffled each time you press the reload button in the form preview. NOTE: This setting only applies to questions that have the shuffeling option activated.';
 $string['signature'] = 'Signature';
-$string['singlechoice'] = 'Single choice';
+$string['multichoice_single_info']='Single choice';
 $string['standard'] = 'Standard';
 $string['starttutorial'] = 'Start tutorial about the examination';
 $string['statistics'] = 'Statistics';
@@ -665,3 +665,7 @@ $string['withselected'] = 'With selected...';
 $string['zipfile'] = 'ZIP file';
 $string['zipok'] = 'ZIP file imported';
 $string['zerogradewarning'] = 'Warning: Your offline quiz grade is 0.0!';
+
+$string['enable_qtypes_heading']='Question types options';
+$string['enable_qtype']= 'Enable {$a}';
+$string['enable_qtype_description']='Do you want to enable {$a} questions in Offline Quizzes?';

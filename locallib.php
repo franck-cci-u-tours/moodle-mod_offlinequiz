@@ -87,7 +87,7 @@ class offlinequiz_question_usage_by_activity extends question_usage_by_activity 
 
             // We have to check for the type because we might have old migrated templates
             // that could contain description questions.
-            if ($slotquestion->get_type_name() == 'multichoice' || $slotquestion->get_type_name() == 'multichoiceset') {
+            if (\mod_offlinequiz\qtype_enabled::instance()->is_enabled($slotquestion->get_type_name())) {
                 $order = $slotquestion->get_order($attempt);  // Order of the answers.
                 $order = implode(',', $order);
                 $newslot = $newquba->add_question($slotquestion, $qinstances[$slotquestion->id]->maxmark);
@@ -1409,7 +1409,7 @@ function offlinequiz_get_group_template_usage($offlinequiz, $group, $context) {
                 $question = question_bank::make_question($questiondata[$questionid]);
 
                 // We only add multichoice questions which are needed for grading.
-                if ($question->get_type_name() == 'multichoice' || $question->get_type_name() == 'multichoiceset') {
+                if (\mod_offlinequiz\qtype_enabled::instance()->is_enabled($question->get_type_name())) {
                     $templateusage->add_question($question, $groupquestions[$question->id]->maxmark);
                 }
             }
@@ -2192,12 +2192,12 @@ function offlinequiz_add_random_questions($offlinequiz, $offlinegroup, $category
 
     list($qcsql, $qcparams) = $DB->get_in_or_equal($categoryids, SQL_PARAMS_NAMED, 'qc');
 
-    $sql = "SELECT id
+    $sql = 'SELECT id
               FROM {question} q
-             WHERE q.category $qcsql
-               AND q.parent = 0
+             WHERE q.category ' . $qcsql . ' '
+            . 'AND q.parent = 0
                AND q.hidden = 0
-               AND q.qtype IN ('multichoice', 'multichoiceset') ";
+               AND q.qtype IN (\'' . implode('\', \'', \mod_offlinequiz\qtype_enabled::instance()->get()) . '\') ';
     if (!$preventsamequestion) {
         // Find all questions in the selected categories that are not in the offline group yet.
         $sql .= "AND NOT EXISTS (SELECT 1

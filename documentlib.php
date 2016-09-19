@@ -27,56 +27,17 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Get the question info string parametrized by offlinequiz for the given question
+ *
+ * @param object $offlinequiz the offline quiz
+ * @param object $question the question
+ *
+ * @return string the info string
+ */
 function offlinequiz_get_question_infostring($offlinequiz, $question) {
-    if ($offlinequiz->showgrades || $offlinequiz->showquestioninfo) {
-        $infostr = '(';
-        $questioninfo = offlinequiz_get_questioninfo($offlinequiz, $question);
-        if ($questioninfo) {
-            $infostr .= $questioninfo;
-            if ($offlinequiz->showgrades) {
-                $infostr .= ', ';
-            }
-        }
 
-        if ($offlinequiz->showgrades) {
-            $pointstr = get_string('points', 'grades');
-            if ($question->maxmark == 1) {
-                $pointstr = get_string('point', 'offlinequiz');
-            }
-            $infostr = $infostr . format_float($question->maxmark, $offlinequiz->decimalpoints) . ' '. $pointstr;
-        }
-
-        $infostr = $infostr . ')';
-        return  $infostr;
-
-    }
-    return null;
-}
-
-function offlinequiz_get_questioninfo($offlinequiz, $question) {
-    if ($offlinequiz->showquestioninfo == OFFLINEQUIZ_QUESTIONINFO_QTYPE) {
-        if ($question->qtype == 'multichoice') {
-
-            if ($question->options->single) {
-                $questioninfo = get_string('singlechoice', 'offlinequiz');
-            } else {
-                $questioninfo = get_string('multichoice', 'offlinequiz');
-            }
-        } else if ($question->qtype == 'multichoiceset') {
-            $questioninfo = get_string('allornothing', 'offlinequiz');
-        }
-        return $questioninfo;
-
-    } else if ($offlinequiz->showquestioninfo == OFFLINEQUIZ_QUESTIONINFO_ANSWERS) {
-        $amount = offlinequiz_get_amount_correct_answers($question);
-        $questioninfo = $amount . ' ' . get_string('questioninfocorrectanswers', 'offlinequiz');
-        if ($amount == 1) {
-            $questioninfo = $amount . ' ' . get_string('questioninfocorrectanswer', 'offlinequiz', $amount);
-        }
-        return $questioninfo;
-    } else {
-        return null;
-    }
+    return \mod_offlinequiz\question_info_factory::get($offlinequiz)->get($question);
 }
 
 function offlinequiz_get_amount_correct_answers($question) {

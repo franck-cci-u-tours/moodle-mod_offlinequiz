@@ -132,5 +132,16 @@ if ($ADMIN->fulltree) {
             get_string('oneclickroledesc', 'offlinequiz'), $default, $options));
 
     $settings->add(new admin_setting_configtext('offlinequiz/keepfilesfordays', get_string('keepfilesfordays', 'offlinequiz'),
-             get_string('configkeepfilesfordays', 'offlinequiz'), 8, PARAM_INT));
+            get_string('configkeepfilesfordays', 'offlinequiz'), 8, PARAM_INT));
+
+    // Configure compatible modules
+    $settings->add(new admin_setting_heading('offlinequiz/enable_qtypes',
+            get_string('enable_qtypes_heading', 'offlinequiz'), null));
+
+    foreach (\mod_offlinequiz\qtype_compatible::instance()->get() as $qtype => $configuration) {
+
+        $settings->add(new admin_setting_configcheckbox('offlinequiz/enable_' . $qtype,
+                get_string('enable_qtype', 'offlinequiz', $qtype = get_string('pluginname', 'qtype_' . $qtype)),
+                get_string('enable_qtype_description', 'offlinequiz', $qtype), $configuration, $configuration, 0));
+    }
 }
