@@ -1,0 +1,10 @@
+[«interface»;question_info||+get(question)]^-.-[question_info_answers||+get(question)]
+[«interface»;question_info||+get(question)]^-.-[question_info_grade||+get(question)]
+[«interface»;question_info||+get(question)]^-.-[question_info_nop||+get(question)]
+
+[«abstract»;question_info_decorator||+get(question)]^-.-[«interface»;question_info||+get(question)]
+
+[question_info_brackets||+get(question)]^-[«abstract»;question_info_decorator||+get(question)]
+[question_info_list||+get(question)]^-[«abstract»;question_info_decorator||+get(question)]
+
+[question_info_factory||]
